@@ -6,7 +6,7 @@
   <link href="http://chronuscc.github.io/atom.xml" rel="self"/>
   
   <link href="http://chronuscc.github.io/"/>
-  <updated>2021-06-29T05:18:32.747Z</updated>
+  <updated>2021-06-29T12:28:13.218Z</updated>
   <id>http://chronuscc.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo网页搭建：打开本地端口与局域网展示</title>
+    <link href="http://chronuscc.github.io/2021/06/29/open-local-port-to-network/"/>
+    <id>http://chronuscc.github.io/2021/06/29/open-local-port-to-network/</id>
+    <published>2021-06-29T11:41:50.000Z</published>
+    <updated>2021-06-29T12:28:13.218Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;在完成Hexo网页后，我们通常可以执行如下步骤，完成网页在本地端的预览：&lt;/p&gt;
+&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter</summary>
+      
+    
+    
+    
+    <category term="网页搭建" scheme="http://chronuscc.github.io/categories/%E7%BD%91%E9%A1%B5%E6%90%AD%E5%BB%BA/"/>
+    
+    
+    <category term="Linux" scheme="http://chronuscc.github.io/tags/Linux/"/>
+    
+    <category term="Hexo" scheme="http://chronuscc.github.io/tags/Hexo/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
