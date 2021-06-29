@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Hexo</title>
-  <icon>https://chronuscc.github.io/icon.png</icon>
+  <icon>http://chronuscc.github.io/icon.png</icon>
   
-  <link href="https://chronuscc.github.io/atom.xml" rel="self"/>
+  <link href="http://chronuscc.github.io/atom.xml" rel="self"/>
   
-  <link href="https://chronuscc.github.io/"/>
+  <link href="http://chronuscc.github.io/"/>
   <updated>2021-06-29T05:18:32.747Z</updated>
-  <id>https://chronuscc.github.io/</id>
+  <id>http://chronuscc.github.io/</id>
   
   <author>
     <name>Chronus</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://chronuscc.github.io/2021/06/29/hello-world/"/>
-    <id>https://chronuscc.github.io/2021/06/29/hello-world/</id>
+    <link href="http://chronuscc.github.io/2021/06/29/hello-world/"/>
+    <id>http://chronuscc.github.io/2021/06/29/hello-world/</id>
     <published>2021-06-29T05:18:32.747Z</published>
     <updated>2021-06-29T05:18:32.747Z</updated>
     
