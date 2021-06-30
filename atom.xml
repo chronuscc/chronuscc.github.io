@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Hexo</title>
+  <title>Chronus Universe</title>
   <icon>http://chronuscc.github.io/icon.png</icon>
   
   <link href="http://chronuscc.github.io/atom.xml" rel="self"/>
   
   <link href="http://chronuscc.github.io/"/>
-  <updated>2021-06-29T12:28:13.218Z</updated>
+  <updated>2021-06-30T03:10:03.951Z</updated>
   <id>http://chronuscc.github.io/</id>
   
   <author>
@@ -21,13 +21,13 @@
     <link href="http://chronuscc.github.io/2021/06/29/open-local-port-to-network/"/>
     <id>http://chronuscc.github.io/2021/06/29/open-local-port-to-network/</id>
     <published>2021-06-29T11:41:50.000Z</published>
-    <updated>2021-06-29T12:28:13.218Z</updated>
+    <updated>2021-06-30T03:10:03.951Z</updated>
     
     
       
       
     <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;在完成Hexo网页后，我们通常可以执行如下步骤，完成网页在本地端的预览：&lt;/p&gt;
-&lt;figure class=&quot;highlight plaintext&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;gutter</summary>
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;</summary>
       
     
     
@@ -46,7 +46,7 @@
     <link href="http://chronuscc.github.io/2021/06/29/hello-world/"/>
     <id>http://chronuscc.github.io/2021/06/29/hello-world/</id>
     <published>2021-06-29T05:18:32.747Z</published>
-    <updated>2021-06-29T05:18:32.747Z</updated>
+    <updated>2021-06-30T02:20:23.566Z</updated>
     
     
       

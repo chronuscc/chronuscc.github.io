@@ -16,16 +16,18 @@
     <meta name="description" content="" />
     
     <title>
-      Hexo网页搭建：打开本地端口与局域网展示 - Hexo
+      Hexo网页搭建：打开本地端口与局域网展示 - Chronus Universe
     </title>
     <link rel="manifest" href="/manifest.json" />
     <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon" />
     
 <link rel="stylesheet" href="/style/style.css">
 
-  <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  <meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Chronus Universe" type="application/atom+xml">
 </head>
   <body>
+    <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
+    <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <canvas id='pagemap'></canvas>
     
     <div id="fixed-menu-wrap">
@@ -210,12 +212,14 @@
       </div>
     </div>
     <html><head></head><body><p>在完成Hexo网页后，我们通常可以执行如下步骤，完成网页在本地端的预览：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></tbody></table></figure>
-<p>随后便可以在任意浏览器打开<code>http://localhost:4000/</code>预览已经生成的网页。<br>除此之外，我们还希望把生成的主页分享给一起的伙伴，这就需要我们将本地的端口<br>开放给局域网使用。我们也借这个机会复习一下Linux中常用的网络指令。</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 列出所有的套接字接口</span><br><span class="line"># l - listening</span><br><span class="line"># n - with port number</span><br><span class="line"># t - tcp</span><br><span class="line"># u - udp</span><br><span class="line">netstat -lntu</span><br><span class="line"># 尝试寻找端口号</span><br><span class="line">netstat -na | grep :4000</span><br><span class="line"># 如果有使用ubuntu firewall</span><br><span class="line">sudo ufw allow 4000</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
-<p>在上述的命令行，当使用ubuntu firewall时，<code>ufw</code>会管理所有的端口和连接，<br>用来替换旧版本的<code>iptables</code>防火墙。而针对其他版本的Linux，可以使用如下两个<br>指令：</p>
-<figure class="highlight plaintext"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># centos &amp; redhat</span><br><span class="line">firewall-cmd --add-port=4000/tcp</span><br><span class="line"># iptable </span><br><span class="line"># A - append添加新的规则</span><br><span class="line"># p - protocal协议使用TCP</span><br><span class="line"># --dport - 端口使用400</span><br><span class="line"># j - jump跳转规则为ACCEPT接受</span><br><span class="line">iptables -A INPUT -p tcp --dport 4000 -j ACCEPT</span><br><span class="line"># 重启iptables</span><br><span class="line">sudo systemctl restart iptables</span><br></pre></td></tr></tbody></table></figure>
-<p>最后通过<code>ifconfig</code>获得局域网ip后便可以通过<code>ip:4000</code>在其他的局域网主机上访问<br>刚刚搭建的网页。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">hexo clean<br>hexo g<br>hexo s<br></code></pre></td></tr></tbody></table></figure>
+<p>随后便可以在任意浏览器打开<code>http://localhost:4000/</code>预览已经生成的网页。除此之外，我们还希望把生成的主页分享给一起的伙伴，这就需要我们将本地的端口开放给局域网使用。我们也借这个机会复习一下Linux中常用的网络指令。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 列出所有的套接字接口</span><br><span class="hljs-comment"># l - listening</span><br><span class="hljs-comment"># n - with port number</span><br><span class="hljs-comment"># t - tcp</span><br><span class="hljs-comment"># u - udp</span><br>netstat -lntu<br><span class="hljs-comment"># 尝试寻找端口号</span><br>netstat -na | grep :4000<br><span class="hljs-comment"># 如果有使用ubuntu firewall</span><br>sudo ufw allow 4000<br></code></pre></td></tr></tbody></table></figure>
+
+<p>在上述的命令行，当使用ubuntu firewall时，<code>ufw</code>会管理所有的端口和连接，用来替换旧版本的<code>iptables</code>防火墙。而针对其他版本的Linux，可以使用如下两个指令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># centos &amp; redhat</span><br>firewall-cmd --add-port=4000/tcp<br><span class="hljs-comment"># iptable </span><br><span class="hljs-comment"># A - append添加新的规则</span><br><span class="hljs-comment"># p - protocal协议使用TCP</span><br><span class="hljs-comment"># --dport - 端口使用400</span><br><span class="hljs-comment"># j - jump跳转规则为ACCEPT接受</span><br>iptables -A INPUT -p tcp --dport 4000 -j ACCEPT<br><span class="hljs-comment"># 重启iptables</span><br>sudo systemctl restart iptables<br></code></pre></td></tr></tbody></table></figure>
+
+<p>最后通过<code>ifconfig</code>获得局域网ip后便可以通过<code>ip:4000</code>在其他的局域网主机上访问刚刚搭建的网页。</p>
 </body></html>
 
   
