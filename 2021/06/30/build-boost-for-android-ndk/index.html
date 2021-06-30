@@ -16,7 +16,7 @@
     <meta name="description" content="" />
     
     <title>
-      Hello World - Chronus Universe
+      Boost库在Android NDK环境内的编译 - Chronus Universe
     </title>
     <link rel="manifest" href="/manifest.json" />
     <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon" />
@@ -29,11 +29,6 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
     <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <canvas id='pagemap'></canvas>
-    
-    <div id="post-toc" class="animated hiddenToc hide">
-      <span class="title">Toc</span>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Highlight"><span class="toc-text">Highlight</span></a></li></ol></li></ol>
-    </div>
     
     <div id="fixed-menu-wrap">
       <span class="iconfont icon-sousuo search-box menu-reset"></span>
@@ -174,36 +169,51 @@
         <article class="post-entry">
     <div class="header">
       
-      <div class="title">Hello World</div>
+      <div class="title">Boost库在Android NDK环境内的编译</div>
       <div class="meta">
         <span class="item">
           <span class="iconfont icon-time-circle"></span>
-          <span>2021/06/29</span>
+          <span>2021/06/30</span>
         </span>
 
         
 
         
         
-        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/Android">Android</a>
+                  
+                
+                  
+                    <a href="/tags/NDK">NDK</a>
+                  
+                
+            </span>
+          </span>
+         
       </div>
       <div>
       </div>
     </div>
-    <html><head></head><body><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start">Quick Start<a class="post-anchor" href="#Quick-Start"></a></h2><h3 id="Create-a-new-post">Create a new post<a class="post-anchor" href="#Create-a-new-post"></a></h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">"My New Post"</span><br></code></pre></td></tr></tbody></table></figure>
+    <html><head></head><body><p>在常用的库依赖中，例如opencv，glog等，由于这项目都是通过CMakeLists.txt 完成编译，只需要简单的指定NDK的编译器，使用如下的编译指令就可以完成项目的编译，生成所需要的库文件。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> &lt;project&gt;<br>mkdir build &amp;&amp; <span class="hljs-built_in">cd</span> build<br>cmake \<br>    -DCMAKE_TOOLCHAIN_FILE=<span class="hljs-variable">$NDK</span>/build/cmake/android.toolchain.cmake \<br>    -DANDROID_ABI=arm64-v8a \<br>    -DANDROID_NATIVE_API_LEVEL=android-23 \<br>    -DANDROID_STL=c++_shared \<br>    ..<br></code></pre></td></tr></tbody></table></figure>
+<p>但是，与上述项目不同，Boost使用的编译工具主要是自带的<code>bootstrap.sh</code>，需要的编译过程则会更加复杂，在这里以1.65.0版本的Boost为例，详细介绍一下如何在Ubuntu环境内交叉编译获得32位以及64位的Boost库文件。</p>
+<p>首先，我们需要通过<a target="_blank" rel="noopener" href="https://www.boost.org/users/download/">Boost官方页面</a>下载指定版本的压缩包，这里需要注意的是，因为压缩包和Github上的Boost仓库并不一致，不要下载Boost仓库并切换分支。下载完成后我们将下载的压缩包解压并切换至解压文件夹。</p>
+<p>之后我们需要产生编译Boost所需要的toolchain文件，我们需要指定好NDK的路径，确认该变量在系统中可用，指令<code>echo $NDK</code>可以正常运行。然后，我们使用下面脚本完成工具链的生成。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">toolchain=<span class="hljs-variable">$PWD</span>/toolchain<br><span class="hljs-comment"># arm64-v8a</span><br><span class="hljs-variable">$NDK</span>/build/tools/make-standalone-toolchain.sh \<br>    --arch=arm64 --platform=android-23 \<br>    --install-dir=<span class="hljs-string">"<span class="hljs-variable">$toolchain</span>"</span> \<br>    --toolchain=aarch64-linux-android-clang \<br>    --use-llvm --stl=c++_shared<br><br><span class="hljs-comment"># armeabi-v7a</span><br><span class="hljs-variable">$NDK</span>/build/tools/make-standalone-toolchain.sh \<br>    --arch=arm --platform=android-23 \<br>    --install-dir=<span class="hljs-string">"<span class="hljs-variable">$toolchain</span>"</span> \<br>    --toolchain=armeabi-linux-android-clang \<br>    --use-llvm --stl=c++_shared<br></code></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server">Run server<a class="post-anchor" href="#Run-server"></a></h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></tbody></table></figure>
+<p>第三步，我们需要生成编译所需要的<code>user-config.jam</code>文件，执行如下指令：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">user_config=tools/build/src/user-config.jam<br>rm -f <span class="hljs-variable">$user_config</span><br><span class="hljs-comment"># arm64-v8a</span><br>cat &lt;&lt;<span class="hljs-string">EOF &gt; $user_config</span><br><span class="hljs-string">import os ;</span><br><span class="hljs-string"></span><br><span class="hljs-string">using clang : android</span><br><span class="hljs-string">:</span><br><span class="hljs-string">"$toolchain/bin/clang++"</span><br><span class="hljs-string">:</span><br><span class="hljs-string">&lt;archiver&gt;$toolchain/bin/aarch64-linux-android-ar</span><br><span class="hljs-string">&lt;ranlib&gt;$toolchain/bin/aarch64-linux-android-ranlib</span><br><span class="hljs-string">;</span><br><span class="hljs-string">EOF</span><br><br><span class="hljs-comment"># armeabi-v7a</span><br>cat &lt;&lt;<span class="hljs-string">EOF &gt; $user_config</span><br><span class="hljs-string">import os ;</span><br><span class="hljs-string"></span><br><span class="hljs-string">using clang : android</span><br><span class="hljs-string">:</span><br><span class="hljs-string">"$toolchain/bin/clang++"</span><br><span class="hljs-string">:</span><br><span class="hljs-string">&lt;archiver&gt;$toolchain/bin/arm-linux-androideabi-ar</span><br><span class="hljs-string">&lt;ranlib&gt;$toolchain/bin/arm-linux-androideabi-ranlib</span><br><span class="hljs-string">;</span><br><span class="hljs-string">EOF</span><br></code></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files">Generate static files<a class="post-anchor" href="#Generate-static-files"></a></h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></tbody></table></figure>
+<p>最后，执行常规的<code>bootstrap.sh</code>以及<code>b2</code>便可以编译生成库文件，在此过程中，我们可以指定编译库的安装路径。由于我们编译获得的是安卓上的库文件，强烈不建议安装到系统<code>/usr/local</code>路径下，我们可以直接编辑<code>bootstrap.sh</code>文件中的<code>PREFIX</code>变量为<code>PWD/install</code>。</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">./bootstrap.sh --with-toolset=clang<br><br>./b2 -j32 \<br>    --with-atomic \<br>    --with-chrono \<br>    --with-container \<br>    --with-date_time \<br>    --with-exception \<br>    --with-filesystem \<br>    --with-iostreams \<br>    --with-locale \<br>    --with-log \<br>    --with-program_options \<br>    --with-random \<br>    --with-regex \<br>    --with-serialization \<br>    --with-system \<br>    --with-test \<br>    --with-thread \<br>    --with-timer \<br>    --address-model=32 \<br>    toolset=clang-android \<br>    architecture=arm \ <span class="hljs-comment"># arm64 for arm64-v8a</span><br>    variant=release \<br>    --layout=versioned \<br>    target-os=android \<br>    threading=multi \<br>    threadapi=pthread \<br>    link=shared \<br>    runtime-link=shared \<br>    install<br></code></pre></td></tr></tbody></table></figure>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites">Deploy to remote sites<a class="post-anchor" href="#Deploy-to-remote-sites"></a></h3><figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></tbody></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-<h3 id="Highlight">Highlight<a class="post-anchor" href="#Highlight"></a></h3><figure class="highlight plaintext"><table><tbody><tr><td class="code"><pre><code class="hljs plaintext">alert('Hello World!');<br></code></pre></td></tr></tbody></table></figure>
+<p>最后我们可以在当前路径下的<code>install</code>文件夹内找到所有的库文件和头文件并在安卓工程中使用它们。</p>
 </body></html>
 
   
@@ -230,10 +240,10 @@
   <div class="post-guide">
     <div class="item left">
         
-          <a href="/2021/06/29/open-local-port-to-network/">Hexo网页搭建：打开本地端口与局域网展示</a>
-        
     </div>
     <div class="item right">
+        
+          <a href="/2021/06/29/open-local-port-to-network/">Hexo网页搭建：打开本地端口与局域网展示</a>
         
     </div>
   </div>
@@ -245,7 +255,7 @@
       本文作者：<a href="http://chronus.cc">Chronus</a>
     </div>
     <div class="link">
-      永久链接：<a href="http://chronus.cc/2021/06/29/hello-world/">http://chronus.cc/2021/06/29/hello-world/</a>
+      永久链接：<a href="http://chronus.cc/2021/06/30/build-boost-for-android-ndk/">http://chronus.cc/2021/06/30/build-boost-for-android-ndk/</a>
     </div>
     <div class="declare">
       版权声明：本文首发于<a href="http://chronus.cc">Chronus</a>的博客，转载请注明出处！

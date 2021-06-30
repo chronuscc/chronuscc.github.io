@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Chronus Universe</title>
-  <icon>http://chronuscc.github.io/icon.png</icon>
+  <icon>http://chronus.cc/icon.png</icon>
   
-  <link href="http://chronuscc.github.io/atom.xml" rel="self"/>
+  <link href="http://chronus.cc/atom.xml" rel="self"/>
   
-  <link href="http://chronuscc.github.io/"/>
-  <updated>2021-06-30T03:10:03.951Z</updated>
-  <id>http://chronuscc.github.io/</id>
+  <link href="http://chronus.cc/"/>
+  <updated>2021-06-30T07:55:01.605Z</updated>
+  <id>http://chronus.cc/</id>
   
   <author>
     <name>Chronus</name>
@@ -17,9 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Boost库在Android NDK环境内的编译</title>
+    <link href="http://chronus.cc/2021/06/30/build-boost-for-android-ndk/"/>
+    <id>http://chronus.cc/2021/06/30/build-boost-for-android-ndk/</id>
+    <published>2021-06-30T07:39:52.000Z</published>
+    <updated>2021-06-30T07:55:01.605Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;在常用的库依赖中，例如opencv，glog等，由于这项目都是通过CMakeLists.txt 完成编译，只需要简单的指定NDK的编译器，使用如下的编译指令就可以完成项目的编译，生成所需要的库文件。&lt;/p&gt;
+&lt;figure </summary>
+      
+    
+    
+    
+    
+    <category term="Android" scheme="http://chronus.cc/tags/Android/"/>
+    
+    <category term="NDK" scheme="http://chronus.cc/tags/NDK/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hexo网页搭建：打开本地端口与局域网展示</title>
-    <link href="http://chronuscc.github.io/2021/06/29/open-local-port-to-network/"/>
-    <id>http://chronuscc.github.io/2021/06/29/open-local-port-to-network/</id>
+    <link href="http://chronus.cc/2021/06/29/open-local-port-to-network/"/>
+    <id>http://chronus.cc/2021/06/29/open-local-port-to-network/</id>
     <published>2021-06-29T11:41:50.000Z</published>
     <updated>2021-06-30T03:10:03.951Z</updated>
     
@@ -32,19 +55,19 @@
     
     
     
-    <category term="网页搭建" scheme="http://chronuscc.github.io/categories/%E7%BD%91%E9%A1%B5%E6%90%AD%E5%BB%BA/"/>
+    <category term="网页搭建" scheme="http://chronus.cc/categories/%E7%BD%91%E9%A1%B5%E6%90%AD%E5%BB%BA/"/>
     
     
-    <category term="Linux" scheme="http://chronuscc.github.io/tags/Linux/"/>
+    <category term="Linux" scheme="http://chronus.cc/tags/Linux/"/>
     
-    <category term="Hexo" scheme="http://chronuscc.github.io/tags/Hexo/"/>
+    <category term="Hexo" scheme="http://chronus.cc/tags/Hexo/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="http://chronuscc.github.io/2021/06/29/hello-world/"/>
-    <id>http://chronuscc.github.io/2021/06/29/hello-world/</id>
+    <link href="http://chronus.cc/2021/06/29/hello-world/"/>
+    <id>http://chronus.cc/2021/06/29/hello-world/</id>
     <published>2021-06-29T05:18:32.747Z</published>
     <updated>2021-06-30T02:20:23.566Z</updated>
     

@@ -194,8 +194,8 @@
 .post-wrap code {
   font-size: 0.75rem;
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-  color: #f0f0f0;
-  background: #600;
+  color: #063;
+  background: #e0e0e0;
   padding: 0.2rem;
   border-radius: 0.3rem;
 }
