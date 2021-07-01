@@ -16,7 +16,7 @@
     <meta name="description" content="" />
     
     <title>
-      Tags - Chronus Universe
+      使用ldd以及readelf指令来了解你的库文件 - Chronus Universe
     </title>
     <link rel="manifest" href="/manifest.json" />
     <link rel="shortcut icon" href="/images/logo.ico" type="image/x-icon" />
@@ -29,6 +29,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css">
     <script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script>
     <canvas id='pagemap'></canvas>
+    
+    <div id="post-toc" class="animated hiddenToc hide">
+      <span class="title">Toc</span>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ELF%E6%96%87%E4%BB%B6%E5%92%8Creadelf%E6%8C%87%E4%BB%A4"><span class="toc-text">ELF文件和readelf指令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ldd%E7%9A%84%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8"><span class="toc-text">ldd的常见使用</span></a></li></ol>
+    </div>
     
     <div id="fixed-menu-wrap">
       <span class="iconfont icon-sousuo search-box menu-reset"></span>
@@ -71,7 +76,7 @@
           Categories
         </a>
         
-        <a href="/tags" class="current">
+        <a href="/tags" class="">
           Tags
         </a>
         
@@ -125,7 +130,7 @@
             Categories
           </a>
           
-          <a href="/tags" class="current">
+          <a href="/tags" class="">
             Tags
           </a>
           
@@ -166,89 +171,95 @@
     </div>
     <div id="container">
       <div class="main animated bounceInRight delay-0.7s">
-        <div id="tags">
-  <div class="title">
-    Tags
-  </div>
-
-  
-  <div class="list">
-     
-    <li class="Android active">
-      <span>Android<sup>1</sup></span>
-    </li>
+        <article class="post-entry">
+    <div class="header">
       
-    <li class="NDK ">
-      <span>NDK<sup>1</sup></span>
-    </li>
-      
-    <li class="Linux ">
-      <span>Linux<sup>2</sup></span>
-    </li>
-      
-    <li class="Hexo ">
-      <span>Hexo<sup>1</sup></span>
-    </li>
-     
-  </div>
-  
-  <div class="post-wrap">
-     
-    <div class="post Android active">
-      
-      <li>
-        <a href="/2021/06/30/build-boost-for-android-ndk/" title="Boost库在Android NDK环境内的编译">
-          <span>2021/06/30</span>
-          <span>Boost库在Android NDK环境内的编译</span>
-        </a>
-      </li>
-      
-    </div>
-      
-    <div class="post NDK ">
-      
-      <li>
-        <a href="/2021/06/30/build-boost-for-android-ndk/" title="Boost库在Android NDK环境内的编译">
-          <span>2021/06/30</span>
-          <span>Boost库在Android NDK环境内的编译</span>
-        </a>
-      </li>
-      
-    </div>
-      
-    <div class="post Linux ">
-      
-      <li>
-        <a href="/2021/06/29/open-local-port-to-network/" title="Hexo网页搭建：打开本地端口与局域网展示">
-          <span>2021/06/29</span>
-          <span>Hexo网页搭建：打开本地端口与局域网展示</span>
-        </a>
-      </li>
-      
-      <li>
-        <a href="/2021/07/01/use-ldd-readelf-command/" title="使用ldd以及readelf指令来了解你的库文件">
+      <div class="title">使用ldd以及readelf指令来了解你的库文件</div>
+      <div class="meta">
+        <span class="item">
+          <span class="iconfont icon-time-circle"></span>
           <span>2021/07/01</span>
-          <span>使用ldd以及readelf指令来了解你的库文件</span>
-        </a>
-      </li>
-      
-    </div>
-      
-    <div class="post Hexo ">
-      
-      <li>
-        <a href="/2021/06/29/open-local-port-to-network/" title="Hexo网页搭建：打开本地端口与局域网展示">
-          <span>2021/06/29</span>
-          <span>Hexo网页搭建：打开本地端口与局域网展示</span>
-        </a>
-      </li>
-      
-    </div>
-     
-  </div>
-   
-</div>
+        </span>
 
+        
+
+        
+        
+         
+          <span class="item">
+            <span class="iconfont icon-tag1"></span>
+            <span>
+                
+                  
+                    <a href="/tags/Linux">Linux</a>
+                  
+                
+            </span>
+          </span>
+         
+      </div>
+      <div>
+      </div>
+    </div>
+    <html><head></head><body><p>在之前的博客中，我们介绍了如何生成安卓下面可以使用的库文件，例如Boost，OpenCV之类的，但是在X64系统下，我们是无法通过<code>ldd</code>了解我们生成的库文件具体信息是什么，存在有哪些相关的依赖，这个使用我们就需要使用<code>readelf</code>这个指令来了解我们生成的这个库文件。</p>
+<h1 id="ELF文件和readelf指令">ELF文件和readelf指令<a class="post-anchor" href="#ELF文件和readelf指令"></a></h1><p>ELF文件全称Executable and Linkable Format，是Linux系统中默认的目标文件格式，我们通常使用的静态库文件，动态库文件，目标文件都属于带类型文件格式，这种类型的具体文件组成在这里就不详细介绍了，很多Linux系统相关书籍都会提供很多详细的介绍，包括文件组织，文件头等等。</p>
+<p>现在回到<code>readelf</code>这个指令，常用的使用包括如下：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 可以获得elf文件的头，我们可以通过这个判断编译出来的库文件类型的使用平台是否正确</span><br>readelf -h &lt;elf&gt;<br><span class="hljs-comment"># 查看自己需要的依赖</span><br>readelf -a &lt;elf&gt; | grep &lt;keyword&gt;<br></code></pre></td></tr></tbody></table></figure>
+<p>上面两个指令可以简单完成对于库文件头的查看，以及了解其中所需要的依赖。对于查看程序头表和节头表的内容，恕我确实不常用，在这里就不介绍了。</p>
+<h1 id="ldd的常见使用">ldd的常见使用<a class="post-anchor" href="#ldd的常见使用"></a></h1><p>相对于<code>readelf</code>，<code>ldd</code>的使用更为常见，在这里就简单列出一些几个常用的指令，如下：</p>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">ldd &lt;target file&gt; <span class="hljs-comment">#列出所有的链接信息，通常配合grep使用</span><br>ldd -v &lt;target file&gt; <span class="hljs-comment">#列出版本信息，如果自己电脑里安装有多个依赖版本，这个很常用，例如电脑中安装有多个OpenCV</span><br>ldd -u &lt;target file&gt; <span class="hljs-comment">#获取未经直接使用的链接库，我会配合strip使用，减少库的大小</span><br>ldd -d/r &lt;target file&gt; <span class="hljs-comment">#如果有确实的依赖，进行relocation</span><br></code></pre></td></tr></tbody></table></figure></body></html>
+
+  
+    <div class="post-reward">
+    <div id="reward-button">打赏</div>
+      <div id="qr">
+        <div class="wrap">
+            
+            <div class="bg-wrap">
+              <a href="/images/zhifubao.jpg" target="_block" class="bg" style="background-image:url('/images/zhifubao.jpg')"></a>
+              支付宝
+            </div>
+            
+            
+            <div class="bg-wrap">
+                <a href="/images/weixin.jpg" target="_block" class="bg" style="background-image:url('/images/weixin.jpg')"></a>
+              微信
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  
+  <div class="post-guide">
+    <div class="item left">
+        
+    </div>
+    <div class="item right">
+        
+          <a href="/2021/06/30/build-boost-for-android-ndk/">Boost库在Android NDK环境内的编译</a>
+        
+    </div>
+  </div>
+
+  
+
+  <div class="post-copyright">
+    <div class="auth">
+      本文作者：<a href="http://chronus.cc">Chronus</a>
+    </div>
+    <div class="link">
+      永久链接：<a href="http://chronus.cc/2021/07/01/use-ldd-readelf-command/">http://chronus.cc/2021/07/01/use-ldd-readelf-command/</a>
+    </div>
+    <div class="declare">
+      版权声明：本文首发于<a href="http://chronus.cc">Chronus</a>的博客，转载请注明出处！
+    </div>
+  </div>
+
+  <div id="comment"></div>
+
+  
+  
+</article>
         <footer>
           <div class="copyright">
             ©2021
