@@ -207,7 +207,7 @@
 <figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 可以获得elf文件的头，我们可以通过这个判断编译出来的库文件类型的使用平台是否正确</span><br>readelf -h &lt;elf&gt;<br><span class="hljs-comment"># 查看自己需要的依赖</span><br>readelf -a &lt;elf&gt; | grep &lt;keyword&gt;<br></code></pre></td></tr></tbody></table></figure>
 <p>上面两个指令可以简单完成对于库文件头的查看，以及了解其中所需要的依赖。对于查看程序头表和节头表的内容，恕我确实不常用，在这里就不介绍了。</p>
 <h1 id="ldd的常见使用">ldd的常见使用<a class="post-anchor" href="#ldd的常见使用"></a></h1><p>相对于<code>readelf</code>，<code>ldd</code>的使用更为常见，在这里就简单列出一些几个常用的指令，如下：</p>
-<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash">ldd &lt;target file&gt; <span class="hljs-comment">#列出所有的链接信息，通常配合grep使用</span><br>ldd -v &lt;target file&gt; <span class="hljs-comment">#列出版本信息，如果自己电脑里安装有多个依赖版本，这个很常用，例如电脑中安装有多个OpenCV</span><br>ldd -u &lt;target file&gt; <span class="hljs-comment">#获取未经直接使用的链接库，我会配合strip使用，减少库的大小</span><br>ldd -d/r &lt;target file&gt; <span class="hljs-comment">#如果有确实的依赖，进行relocation</span><br></code></pre></td></tr></tbody></table></figure></body></html>
+<figure class="highlight bash"><table><tbody><tr><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#列出所有的链接信息，通常配合grep使用</span><br>ldd &lt;target file&gt; <br><span class="hljs-comment">#列出版本信息，如果自己电脑里安装有多个依赖版本，这个很常用，例如电脑中安装有多个OpenCV</span><br>ldd -v &lt;target file&gt; <br><span class="hljs-comment">#获取未经直接使用的链接库，我会配合strip使用，减少库的大小</span><br>ldd -u &lt;target file&gt; <br><span class="hljs-comment">#如果有确实的依赖，进行relocation</span><br>ldd -d/r &lt;target file&gt; <br></code></pre></td></tr></tbody></table></figure></body></html>
 
   
     <div class="post-reward">
